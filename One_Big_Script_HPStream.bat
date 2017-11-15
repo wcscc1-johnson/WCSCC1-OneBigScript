@@ -136,7 +136,7 @@
 ::
 :: \\wcscc-nas\tech\1-1 Image Setup\HPStream_Name.csv            <<----   FOR RENAMING AND **OPTIONAL** FOG HOST REGISTRATION
 :: \\wcscc-nas\tech\1-1 Image Setup\Live_Accounts.txt            <<----   FOR MONITORING DURING Azure Registraion and Next Login
-:: \\WCSCC-NAS\Tech\1-1 Logs\%DeviceModel%_Assigned_Device.csv  <<----   FOR DOCUMENTATION OF WHAT DEVICE GETS ASSIGNED TO WHAT STUDENT.
+:: \\WCSCC-NAS\Tech\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv  <<----   FOR DOCUMENTATION OF WHAT DEVICE GETS ASSIGNED TO WHAT STUDENT.
 ::
 :: <<<<<<<---- SCRIPT REFERENCE FILES ---->>>>>>><<<<<<<---- SCRIPT REFERENCE FILES ---->>>>>>>
 ::
@@ -1374,14 +1374,14 @@ pause
 :: This Section is to document the student that we gave this device to...
 :: Reads the Sirsi Tag
 :: It will only append the file if it needs to, the decision is based on whether or not the WiFi MAC Address has already been assigned to the students UserName...
-:: It will endlessly loop if the script tries to add a line to T:\1-1 Logs\%DeviceModel%_Assigned_Device.csv and that file is open in another program...   Somebody on the network probably has it open in EXCEL Spreadsheet.
+:: It will endlessly loop if the script tries to add a line to T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv and that file is open in another program...   Somebody on the network probably has it open in EXCEL Spreadsheet.
 cls
 echo :AssignedDeviceDocumentation
 echo.
 set /p SIRSI=<%C_Pub_Docs%SIRSI_TAG.txt
 for /f "delims=, tokens=1" %%g in ( %C_Pub_Docs%uname.txt ) do (set studentID=%%g)
-find "%studentID%" "T:\1-1 Logs\%DeviceModel%_Assigned_Device.csv" > %C_Pub_Docs%AssignedDevice.txt
-find /C "%studentID%" "T:\1-1 Logs\%DeviceModel%_Assigned_Device.csv" > %C_Pub_Docs%AssignedDevice_Count.txt
+find "%studentID%" "T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv" > %C_Pub_Docs%AssignedDevice.txt
+find /C "%studentID%" "T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv" > %C_Pub_Docs%AssignedDevice_Count.txt
 for /f "delims=: tokens=3" %%g in ( %C_Pub_Docs%AssignedDevice_Count.txt ) do (set /a Number=%%g)
 if %Number% GEQ 1 set /a NewerDevice=%Number%+1
 if %Number% EQU 0 set NewerDevice=First
@@ -1397,14 +1397,14 @@ echo.
 echo.
 if %MAC_Number% NEQ 0 echo Device is already documented and assigned... Not Adding it again!
 if %MAC_Number% NEQ 0 goto Battery_Check
-echo ADDING A NEW LINE TO T:\1-1 Logs\%DeviceModel%_Assigned_Device.csv
+echo ADDING A NEW LINE TO T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv
 echo This is a new device for the student...
 echo Meaning, the MAC Address (%MAC%) has NEVER been assigned to the student (%studentID%) before!
 echo.
-for /f "delims=, tokens=1,2,3,4,5,6,7" %%f in ( %C_Pub_Docs%uname.txt ) do (echo %SIRSI%,%%f,%computername%,%serial%,%MAC%,%%g %%h,%%j,%%l,%date%,%NewerDevice%)
-for /f "delims=, tokens=1,2,3,4,5,6,7" %%f in ( %C_Pub_Docs%uname.txt ) do (echo %SIRSI%,%%f,%computername%,%serial%,%MAC%,%%g %%h,%%j,%%l,%date%,%NewerDevice%) >> "T:\1-1 Logs\%DeviceModel%_Assigned_Device.csv"
+for /f "delims=, tokens=1,2,3,4,5,6,7" %%f in ( %C_Pub_Docs%uname.txt ) do (echo %SIRSI%,%%f,%computername%,%serial%,%MAC%,%%g %%h,%%j,%%l,%date%,%NewerDevice%,%Product_Key%)
+for /f "delims=, tokens=1,2,3,4,5,6,7" %%f in ( %C_Pub_Docs%uname.txt ) do (echo %SIRSI%,%%f,%computername%,%serial%,%MAC%,%%g %%h,%%j,%%l,%date%,%NewerDevice%,%Product_Key%) >> "T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv"
 echo.
-echo Above is the new line in the T:\1-1 Logs\%DeviceModel%_Assigned_Device.csv
+echo Above is the new line in the T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv
 echo.
 echo.
 timeout /t 15
@@ -1420,7 +1420,7 @@ echo The Script is Complete.  FINALLY!!!!
 echo.
 echo.
 copy %C_Pub_Docs%Student_Network_Drives.bat "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\"
-for /f "delims=, tokens=1,2,3,4,5,6,7" %%f in ( %C_Pub_Docs%uname.txt ) do (echo %SIRSI%,%%f,%computername%,%serial%,%MAC%,%%g %%h,%%j,%%l,%date%)>> "T:\1-1 Logs\Imaging_Log.csv"
+for /f "delims=, tokens=1,2,3,4,5,6,7" %%f in ( %C_Pub_Docs%uname.txt ) do (echo %SIRSI%,%%f,%computername%,%serial%,%MAC%,%%g %%h,%%j,%%l,%date%)>> "T:\1-1 Image Setup\Logs\Imaging_Log.csv"
 shutdown -s -t 30 -c "The Script is Done!  Deleting all Temp Files NOW!!"
 net use /delete T:    /YES
 timeout /nobreak 5
