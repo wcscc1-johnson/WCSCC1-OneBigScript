@@ -852,8 +852,10 @@ clip < %C_Pub_Docs%StudentEmail.txt
 
 
 
-
+:: Azure AD Logic Structures
+:: Tests to see if the Azure AD Powershell script has been ran before
 if EXIST %C_Pub_Docs%AzureADSearchString.txt goto AzureADScriptSecondRun
+:: Tests to see if the NameGenerate_Create_NewName has been ran to generate a hostname
 if EXIST %C_Pub_Docs%NameGenerate_Create_NewName_HasBeenRan.txt goto AzureADScriptBypass
 if NOT EXIST %C_Pub_Docs%NameGenerate_Create_NewName_HasBeenRan.txt goto AzureADScript
 
@@ -868,7 +870,7 @@ if NOT EXIST %C_Pub_Docs%NameGenerate_Create_NewName_HasBeenRan.txt goto AzureAD
 ::
 echo :AzureADScript
 echo.
-echo ARE YOU 100% SURE THIS IS THE COMPUTER FOR THE CORRECT STUDENT?????
+echo ARE YOU 100 PERCENT SURE THIS IS THE COMPUTER FOR THE CORRECT STUDENT?????
 echo IF YOU ARE NOT, CLOSE THE SCRIPT NOW AND SPECIFY A NEW STUDENT NEXT RUN
 echo.
 echo.
@@ -933,7 +935,7 @@ echo UNPAUSE TWICE TO RESTART THE DEVICE.
 pause
 pause
 :: Makes sure the Whole Student.csv Spreadsheet is not on the local computer... 
-:: In case we "skip" a device over the summer and give the device to the student without finishing the Office/Google/Onedrive setup. 
+:: In case we "skip" a device over the Summer and give the device to the student without finishing the Office/Google/Onedrive setup. 
 :: The student cant see other student's credentials
 del /s /q %C_Pub_Docs%Student.csv
 :: Reg Add ...   makes sure the "Windows Hello PIN setup doesn't prompt on first student login"
@@ -1008,9 +1010,12 @@ IF %ERRORLEVEL% == 2 goto AzureADScriptBypass
 echo :ManStudAdd
 echo.
 echo WARNING: IT IS BETTER TO USE THIS SCRIPT TO DO THE LOOKUP.
-echo          TO UPDATE THE STUDENT ACCOUNT 
+echo          TO UPDATE THE STUDENT ACCOUNT.
+echo          Try to avoid manually adding as much as possible for the best documentation at the end
 echo.
+echo --------------------------------------------
 echo      FORMAT: 15LasFir
+echo --------------------------------------------
 set /p studentname="Type Username in:      
 echo %studentname%@wcscc.net>%C_Pub_Docs%StudentEmail.txt
 for /f "delims=" %%x in (%C_Pub_Docs%StudentEmail.txt) do set studentemail=%%x
@@ -1097,6 +1102,7 @@ echo.
 echo ****************  KEYBOARD SHORTCUT FOR MULTIPLE DEVICES  ****************************
 echo Use    Alt L       ,       Alt F    ,    Alt D    to quickly pull up "Accounts"
 echo    Blank Document          File     ,   Accounts 
+echo.
 echo Hold down  Alt  and you can press  L  F  D  as fast as you can   :)
 echo ****************  KEYBOARD SHORTCUT FOR MULTIPLE DEVICES  ****************************
 echo.
@@ -1105,6 +1111,8 @@ echo.
 echo Click   "Blank Document", "File", "Accounts"
 echo.
 echo VERIFY THAT YOU SEE "OneDrive - Wayne County Schools Career Center" AS A "Connected Service"
+echo.
+echo.
 start winword.exe
 timeout /nobreak 20
 choice /m "Do you see 'OneDrive' as a 'Connected Service'?        "
@@ -1128,7 +1136,7 @@ echo.
 echo Word 2016 was just Restarted...
 echo 
 echo.
-echo Here are some recommended Steps to try...
+echo Here are some steps to try...
 echo   1.)   See if you can see "OneDrive - Wayne County Schools Career Center" now.  If so, you are good!
 echo   2.)   "Sign Out" of Word and Manually Sign back in...  With the info from the "Notepad" file
 echo   3.)   Give Word adequate time to sync... 1 minute...
@@ -1140,7 +1148,7 @@ echo.
 timeout /nobreak 20
 pause
 echo.
-echo Srcipt Will Exit...    Resolve Office Issues!!!!!!!!!!!!
+echo Srcipt Will Exit...    Resolve Office Issues Manually!!!!!!!!!!!!
 pause
 exit
 
@@ -1384,7 +1392,7 @@ find "%studentID%" "T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv" > %C_P
 find /C "%studentID%" "T:\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv" > %C_Pub_Docs%AssignedDevice_Count.txt
 for /f "delims=: tokens=3" %%g in ( %C_Pub_Docs%AssignedDevice_Count.txt ) do (set /a Number=%%g)
 if %Number% GEQ 1 set /a NewerDevice=%Number%+1
-if %Number% EQU 0 set NewerDevice=First
+if %Number% EQU 0 set NewerDevice=1
 echo How many devices have already been previously assigned to the student?      %Number%
 echo Where does this device fall in line?  (One higher than last number)         %NewerDevice%
 find /C "%MAC%" %C_Pub_Docs%AssignedDevice.txt > %C_Pub_Docs%Student_Assigned_MAC.txt
