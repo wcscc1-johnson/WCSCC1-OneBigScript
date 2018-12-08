@@ -19,8 +19,8 @@ Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module azureadpreview -force
 
 
-$user = "hp@wcscc.net"
-$passwd = "stream"
+$user = "Genric@Azure.net"
+$passwd = "GenPass"
 $secpasswd = ConvertTo-SecureString "$passwd" -AsPlainText -Force
 $creden = New-Object System.Management.Automation.PSCredential ("$user", $secpasswd)
 Connect-AzureAD -credential $creden
