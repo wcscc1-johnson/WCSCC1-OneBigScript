@@ -100,7 +100,7 @@
 ::
 ::      StudentID Number,FirstName,LastName,Email Address,Username,Password,ProgramCode    
 ::
-::      680111772,HUGO,AMEZCUA,16amehug@wcscc.net,16amehug,Fold@rep2,EXS2
+::      680111772,First,Last,16lasfir@wcscc.net,16amehug,Pass@wor2,EXS2
 ::         Example ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
 ::
@@ -276,7 +276,7 @@ goto :eof
 echo Checks to see if the One_Big_Script.bat needs to be updated and replaced
 echo :TechDrive_Script_and_Documents_Updater_Checker
 echo.
-NET USE T: "\\wcscc-nas\TECH" /USER:wcscc1\foggy yggofthefrog
+NET USE T: "\\wcscc-nas\TECH" /USER:\GenericUser GenericPassword
 timeout /nobreak 2
 net time \\wcscc-nas /set /Y
 IF %ERRORLEVEL% == 2 goto No_Network_Connection
@@ -740,8 +740,8 @@ echo **NOTE**   sudo password is the Ubuntu login password
 echo.
 echo   sudo apt-get install cifs-utils    
 echo   sudo mkdir /mnt/tech
-echo   sudo mount.cifs //wcscc-nas/Tech /mnt/tech -o user=foggy
-echo                 **NOTE**  password for foggy is      yggofthefrog
+echo   sudo mount.cifs //wcscc-nas/Tech /mnt/tech -o user=GenericUser
+echo                 **NOTE**  password for GenericUser is      GenericPassword
 echo   cd /mnt/tech
 echo   cd 1-1       press tab to autocomplete
 echo   ls           "LS"   see files to make sure
