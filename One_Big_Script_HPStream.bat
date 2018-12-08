@@ -25,7 +25,7 @@
 ::                     and that each particular generated hostname exists only once in the file.
 ::                     This variable is set in the :NameGenerate_Check section and is refered to in almost all sections after that until the **END OF THE FIRST BOOT!!!**
 ::                     Specifically it is refered to in the following sections:  :NameGenerate_Check, :NameGenerate_Check_No_Naming_File, :NameGenerate_Check_Create_Naming_File, :NameGenerate_Check_Error, :NameGenerate_Create_NewName, and :RenameComputer
-::                     This variable refers (in this script) to the file "T:\1-1 Image Setup\HPStream_Name.csv" which maps to the full UNC path of "\\wcscc-nas\tech\1-1 Image Setup\HPStream_Name.csv"
+::                     This variable refers (in this script) to the file "T:\1-1 Image Setup\HPStream_Name.csv" which maps to the full UNC path of "\\ServerName\tech\1-1 Image Setup\HPStream_Name.csv"
 ::
 :: %DeviceModel%  ---  This refers to the "base name" of the device. Meaning, this will be the first part of your auto-generated hostnames.
 ::                     This gets set at the "Top Of The Script" right after "@echo off" and is refered to in the sections :NameGenerate_Check_No_Naming_File, :NameGenerate_Check_Create_Naming_File, and :NameGenerate_Create_NewName
@@ -90,7 +90,7 @@
 ::
 :: 1.)  If you are setting up a New Model... Not an "HPStream"...  Refer to "C H A N G I N G    T H E    D E V I C E    M O D E L"
 ::
-:: 2.)  You MUST keep the Student.csv file in the folder "\\wcscc-nas\Tech\1-1 Image Setup\Public_Documents\" up-to-date with ALL of our Student's information
+:: 2.)  You MUST keep the Student.csv file in the folder "\\ServerName\Tech\1-1 Image Setup\Public_Documents\" up-to-date with ALL of our Student's information
 ::      This means you will need to update the .csv file when a new student enrolls over the summer or throughout the year!
 ::      Otherwise, The script will not be able to enroll into Azure AD. Therefor, You can never complete the setup process via this script.
 ::      PLEASE NOTE!!  The Format of the Student.csv file MUST stay the same. This script pulls "cells" that are located in very particular positions.
@@ -100,11 +100,11 @@
 ::
 ::      StudentID Number,FirstName,LastName,Email Address,Username,Password,ProgramCode    
 ::
-::      680111772,First,Last,16lasfir@wcscc.net,16amehug,Pass@wor2,EXS2
+::      680111772,First,Last,16lasfir@wcscc.net,16lasfir,Pass@wor2,EXS2
 ::         Example ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
 ::
-:: 3.)  If you want to MODIFY THE SCRIPT and replicate it to all other devices, Place and Modify the script in the "\\wcscc-nas\Tech\1-1 Image Setup\Public_Documents\" folder
+:: 3.)  If you want to MODIFY THE SCRIPT and replicate it to all other devices, Place and Modify the script in the "\\ServerName\Tech\1-1 Image Setup\Public_Documents\" folder
 ::
 ::
 ::      M A N U A L     C H A N G E S
@@ -115,28 +115,28 @@
 :: It is posible and NECESSARY to update the Student Account Information
 :: This *Normally* can be found on the Staff intranet under Student Information --> Student Accounts-Username/Password
 :: Over the Summer, the IT Dept supervisor, will have this for incoming Juniors
-:: Download, MODIFY, and place the new .csv file on the "Tech" drive in the folder "\\wcscc-nas\Tech\1-1 Image Setup\Public_Documents\"
+:: Download, MODIFY, and place the new .csv file on the "Tech" drive in the folder "\\ServerName\Tech\1-1 Image Setup\Public_Documents\"
 :: The CSV file MUST be named "Student.csv" see "::      M A N U A L     C H A N G E S"
 :: The CSV file SHOULD contain an entry for the student you want to assign a device. Otherwise, you will have to type "1234" in the :Specific section to manually specify a student
 ::
 :: It is also possible to update the Services_Install MSI Files. We may want to do this when Services_Install releases a new version.
 :: Also, you can update the WCSCC_Student wireless profile. This MUST be done when we change the Student Wi-Fi password!!
 ::
-:: \\WCSCC-NAS\Tech\1-1 Image Setup\Public_Documents\MobileFilterx64.msi  <<----   PLACE NEWER VERSION IN THIS LOCATION WITH THIS NAME
-:: \\WCSCC-NAS\Tech\1-1 Image Setup\Public_Documents\LMA_Setupx64.msi     <<----   PLACE NEWER VERSION IN THIS LOCATION WITH THIS NAME
-:: \\WCSCC-NAS\Tech\1-1 Image Setup\Public_Documents\Student.csv           <<----   PLACE NEW CSV IN THIS LOCATION CONTAINING UPDATED STUDENT ACCOUNTS
+:: \\ServerName\Tech\1-1 Image Setup\Public_Documents\MobileFilterx64.msi  <<----   PLACE NEWER VERSION IN THIS LOCATION WITH THIS NAME
+:: \\ServerName\Tech\1-1 Image Setup\Public_Documents\LMA_Setupx64.msi     <<----   PLACE NEWER VERSION IN THIS LOCATION WITH THIS NAME
+:: \\ServerName\Tech\1-1 Image Setup\Public_Documents\Student.csv           <<----   PLACE NEW CSV IN THIS LOCATION CONTAINING UPDATED STUDENT ACCOUNTS
 ::      **NOTE** The most recent Student Accounts, can be found in Microsoft Online and on our Staff Intranet
 ::               Noted Above ^^^^^      Contact a supervisor (Cheryl) for more details.
-:: \\WCSCC-NAS\Tech\1-1 Image Setup\Public_Documents\WCSCC_Student.xml            <<----   PLACE NEW WCSCC_Student.xml TO UPDATE WIFI PASSWORD TO CONNECT TO OUR NETWORK
+:: \\ServerName\Tech\1-1 Image Setup\Public_Documents\WCSCC_Student.xml            <<----   PLACE NEW WCSCC_Student.xml TO UPDATE WIFI PASSWORD TO CONNECT TO OUR NETWORK
 ::      **NOTE** To get updated WCSCC_Student.xml run this command from a privledged command prompt after you connect to the student wifi...
 ::               netsh wlan export profile key=clear
 ::
 ::
 :: <<<<<<<---- SCRIPT REFERENCE FILES ---->>>>>>><<<<<<<---- SCRIPT REFERENCE FILES ---->>>>>>>
 ::
-:: \\wcscc-nas\tech\1-1 Image Setup\HPStream_Name.csv            <<----   FOR RENAMING AND **OPTIONAL** FOG HOST REGISTRATION
-:: \\wcscc-nas\tech\1-1 Image Setup\Live_Accounts.txt            <<----   FOR MONITORING DURING Azure Registraion and Next Login
-:: \\WCSCC-NAS\Tech\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv  <<----   FOR DOCUMENTATION OF WHAT DEVICE GETS ASSIGNED TO WHAT STUDENT.
+:: \\ServerName\tech\1-1 Image Setup\HPStream_Name.csv            <<----   FOR RENAMING AND **OPTIONAL** FOG HOST REGISTRATION
+:: \\ServerName\tech\1-1 Image Setup\Live_Accounts.txt            <<----   FOR MONITORING DURING Azure Registraion and Next Login
+:: \\ServerName\Tech\1-1 Image Setup\%DeviceModel%_Assigned_Device.csv  <<----   FOR DOCUMENTATION OF WHAT DEVICE GETS ASSIGNED TO WHAT STUDENT.
 ::
 :: <<<<<<<---- SCRIPT REFERENCE FILES ---->>>>>>><<<<<<<---- SCRIPT REFERENCE FILES ---->>>>>>>
 ::
@@ -276,9 +276,9 @@ goto :eof
 echo Checks to see if the One_Big_Script.bat needs to be updated and replaced
 echo :TechDrive_Script_and_Documents_Updater_Checker
 echo.
-NET USE T: "\\wcscc-nas\TECH" /USER:\GenericUser GenericPassword
+NET USE T: "\\ServerName\TECH" /USER:\GenericUser GenericPassword
 timeout /nobreak 2
-net time \\wcscc-nas /set /Y
+net time \\ServerName /set /Y
 IF %ERRORLEVEL% == 2 goto No_Network_Connection
 echo.
 T:
@@ -286,7 +286,7 @@ cd "/1-1 Image Setup"
 timeout /nobreak 5
 :: Creates 2 text files. one is the directory of Public_Documents on the Tech Drive. The other is directory of the C:\Users\Public\Documents\ folder
 :: "fc" makes sure the directories are the same...
-:: Note: any change to the files size or contents will cause "fc" to recopy all of the documents in the "\\wcscc-nas\1-1 Image Setup\Public_Documents" folder down to the C: Drive
+:: Note: any change to the files size or contents will cause "fc" to recopy all of the documents in the "\\ServerName\1-1 Image Setup\Public_Documents" folder down to the C: Drive
 cls
 if exist %C_Pub_Docs%Listing_Of_Tech_Drive_PublicDocuments.txt move /Y %C_Pub_Docs%Listing_Of_Tech_Drive_PublicDocuments.txt %C_Pub_Docs%Listing_Of_C_Drive_PublicDocuments.txt
 dir "T:\1-1 Image Setup\Public_Documents" /O:N | find /V "bytes" | find /V "Volume " | find /V "Directory of " | findstr /B /R /V ^$ > %C_Pub_Docs%Listing_Of_Tech_Drive_PublicDocuments.txt
@@ -320,7 +320,7 @@ goto Top_Of_The_Script
 :No_Network_Connection
 :: :TechDrive_Script_and_Documents_Updater_Checker, :LGPO, or :Pull_Latest_Documents_Tech_Drive redirected you here!
 ::
-:: This error is a result from the script not being able to talk to our \\wcscc-nas server.   "ping 10.21.15.113" to see if the server is up...
+:: This error is a result from the script not being able to talk to our \\ServerName server.   "ping 10.21.15.113" to see if the server is up...
 :: To fix this, plug in a ethernet cable or add the device to wifi
 ::
 cls
@@ -398,7 +398,7 @@ if %number% GEQ 2 goto NameGenerate_Check_Error
 :: :NameGenerate_Check redirected you here!         **NOTE**  "%Naming_file%" was assigned in :NameGenerate_Check section
 ::
 :: the script could not see the centralized naming file ("%Naming_file%")
-:: the script then waits 20 seconds to make sure the computer has had sufficent time to connect to \\wcscc-nas     timeout /nobreak 20
+:: the script then waits 20 seconds to make sure the computer has had sufficent time to connect to \\ServerName     timeout /nobreak 20
 :: if the script sees the "%Naming_file%" go back to the main section :NameGenerate_Check     IF EXIST "%Naming_file%" goto NameGenerate_Check
 :: if the script still cant see the "%Naming_file%"  prompt for creation.               choice /c YNE /M "Do you want to create a blank %DeviceModel%_Name.csv file?     Yes, No, Exit"
 ::
@@ -489,7 +489,7 @@ echo.
 echo We found %number% results for the MAC Address
 echo There should only be 1 result
 echo Search for the MAC Address %MAC% in the file "%Naming_file%" in the folder
-echo \\wcscc-nas\TECH\1-1 Image Setup\
+echo \\ServerName\TECH\1-1 Image Setup\
 echo.
 echo.
 echo -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -706,7 +706,7 @@ echo.
 echo Taking Care of a few things...
 echo.
 echo  IMPORTANT   IMPORTANT    IMPORTANT   IMPORTANT    IMPORTANT   IMPORTANT    IMPORTANT   IMPORTANT
-echo     Copies the file Student.csv in the folder "\\wcscc-nas\Tech\1-1 Image Setup\Public_Documents"
+echo     Copies the file Student.csv in the folder "\\ServerName\Tech\1-1 Image Setup\Public_Documents"
 echo     KEEP THIS "Student.csv" file updated with the latest Student Information!!!!!!!!!!!!!!!!!!!!!!
 echo  IMPORTANT   IMPORTANT    IMPORTANT   IMPORTANT    IMPORTANT   IMPORTANT    IMPORTANT   IMPORTANT
 echo.
@@ -740,7 +740,7 @@ echo **NOTE**   sudo password is the Ubuntu login password
 echo.
 echo   sudo apt-get install cifs-utils    
 echo   sudo mkdir /mnt/tech
-echo   sudo mount.cifs //wcscc-nas/Tech /mnt/tech -o user=GenericUser
+echo   sudo mount.cifs //ServerName/Tech /mnt/tech -o user=GenericUser
 echo                 **NOTE**  password for GenericUser is      GenericPassword
 echo   cd /mnt/tech
 echo   cd 1-1       press tab to autocomplete
