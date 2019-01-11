@@ -21,7 +21,7 @@
 			<sharedKey>
 				<keyType>passPhrase</keyType>
 				<protected>false</protected>
-				<keyMaterial>RedRobin</keyMaterial>
+				<keyMaterial>InsertPasswordHere</keyMaterial>
 			</sharedKey>
 		</security>
 	</MSM>
