@@ -3,8 +3,8 @@
 	<name>WCSCC_Student</name>
 	<SSIDConfig>
 		<SSID>
-			<hex>57435343435F53747564656E74</hex>
-			<name>WCSCC_Student</name>
+			<hex>57430543435A49747564656E74</hex>
+			<name>Student_SSID</name>
 		</SSID>
 		<nonBroadcast>false</nonBroadcast>
 	</SSIDConfig>
